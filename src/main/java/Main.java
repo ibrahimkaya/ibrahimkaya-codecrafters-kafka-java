@@ -20,9 +20,6 @@ public class Main {
             serverSocket.setReuseAddress(true);
             // Wait for connection from client.
             clientSocket = serverSocket.accept();
-            InputStream inputStream = clientSocket.getInputStream();
-            System.out.printf(Arrays.toString(inputStream.readAllBytes()));
-
             var outputStream = clientSocket.getOutputStream();
             outputStream.write(wrapWithBytes(message_size));
             outputStream.write(wrapWithBytes(correlation_id));
