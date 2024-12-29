@@ -2,13 +2,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
+
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
-        int message_size = 0 ;
+        int message_size = 0;
         int correlation_id = 7;
         int port = 9092;
         try {
@@ -21,9 +23,9 @@ public class Main {
             InputStream inputStream = clientSocket.getInputStream();
             System.out.printf(Arrays.toString(inputStream.readAllBytes()));
 
-           var outputStream =  clientSocket.getOutputStream();
-           outputStream.write(message_size);
-           outputStream.write(correlation_id);
+            var outputStream = clientSocket.getOutputStream();
+            outputStream.write(wrapWithBytes(message_size));
+            outputStream.write(wrapWithBytes(correlation_id));
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         } finally {
@@ -35,5 +37,9 @@ public class Main {
                 System.out.println("IOException: " + e.getMessage());
             }
         }
+    }
+
+    public static byte[] wrapWithBytes(int value) {
+        return ByteBuffer.allocate(4).putInt(value).array();
     }
 }
