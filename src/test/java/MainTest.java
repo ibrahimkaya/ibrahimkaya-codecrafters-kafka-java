@@ -4,6 +4,9 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * @author ibrahim kaya
+ */
 public class MainTest {
 
     @Test
@@ -13,5 +16,10 @@ public class MainTest {
 
         byte[] result = Main.wrapWithBytes(defaultCorrelationId);
         assertEquals(expectedFormat, Arrays.toString(result));
+    }
+
+    @Test
+    public void shouldParseCorrectly() {
+
     }
 }
