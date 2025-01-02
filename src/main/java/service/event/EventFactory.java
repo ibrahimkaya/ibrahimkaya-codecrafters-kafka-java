@@ -1,11 +1,10 @@
-package event;
+package service.event;
 
 import java.util.Arrays;
 
 public class EventFactory {
 
     private EventFactory() {
-
     }
 
     public static Event createEvent(byte[] buffer) {

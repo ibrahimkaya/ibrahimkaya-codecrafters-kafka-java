@@ -1,4 +1,6 @@
-package event;
+package service.event;
+
+import service.ByteUtils;
 
 public record RequestApiKey(byte[] key) implements EventPart<Integer> {
 
@@ -10,5 +12,10 @@ public record RequestApiKey(byte[] key) implements EventPart<Integer> {
     @Override
     public int length() {
         return 2;
+    }
+
+    @Override
+    public Integer getValue() {
+        return ByteUtils.bytesToInt(key);
     }
 }
