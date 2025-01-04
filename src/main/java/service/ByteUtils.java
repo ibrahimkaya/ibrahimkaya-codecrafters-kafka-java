@@ -12,10 +12,10 @@ public class ByteUtils {
         return Ints.fromByteArray(bytes);
     }
 
-    public static <T> byte[] wrapWithBytes(T value, int length) {
+    public static <T> byte[] wrapWithBytes(T value) {
         return switch (value) {
-            case Short s -> allocate(length).putShort(s).array();
-            case Integer i -> allocate(length).putInt(i).array();
+            case Short s -> allocate(2).putShort(s).array();
+            case Integer i -> allocate(4).putInt(i).array();
             default -> throw new IllegalStateException("Unexpected value: " + value);
         };
     }

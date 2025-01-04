@@ -1,16 +1,14 @@
 package service.event;
 
-import service.ByteUtils;
+import static service.ByteUtils.wrapWithBytes;
 
 public interface EventPart<T> {
 
     String getName();
 
-    int length();
-
     T getValue();
 
     default byte[] getValueAsByteArray() {
-        return ByteUtils.wrapWithBytes(getValue(), length());
+        return wrapWithBytes(getValue());
     }
 }

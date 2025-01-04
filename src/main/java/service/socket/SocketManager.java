@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import service.event.ErrorCode;
 import service.event.Event;
 import service.event.EventFactory;
+import service.event.response.ResponseWriter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,15 +49,13 @@ public final class SocketManager {
 
     public void startWebServer() {
         try {
+            ResponseWriter responseWriter = new ResponseWriter();
             // Wait for connection from client.
             clientSocket = serverSocket.accept();
             var outputStream = clientSocket.getOutputStream();
             var inputStream = clientSocket.getInputStream();
             Event readedEvent = readInputStream(inputStream);
-            outputStream.write(readedEvent.messageSize().size());
-            outputStream.write(readedEvent.correlationId().id());
-            short errorCode = 35;
-            outputStream.write(new ErrorCode(errorCode).getValueAsByteArray());
+            responseWriter.writeOutput(outputStream, readedEvent);
         } catch (IOException e) {
             logger.error("IOException: " + e.getMessage());
         } finally {

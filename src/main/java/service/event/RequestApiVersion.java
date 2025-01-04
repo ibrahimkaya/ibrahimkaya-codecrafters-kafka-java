@@ -1,8 +1,14 @@
 package service.event;
 
-import service.ByteUtils;
+import java.nio.ByteBuffer;
 
-public record RequestApiVersion(byte[] version) implements EventPart<Integer> {
+import static service.ByteUtils.wrapWithBytes;
+
+public record RequestApiVersion(byte[] version) implements EventPart<Short> {
+
+    public RequestApiVersion(short version) {
+        this(wrapWithBytes(version));
+    }
 
     @Override
     public String getName() {
@@ -10,12 +16,7 @@ public record RequestApiVersion(byte[] version) implements EventPart<Integer> {
     }
 
     @Override
-    public int length() {
-        return 2;
-    }
-
-    @Override
-    public Integer getValue() {
-        return ByteUtils.bytesToInt(version);
+    public Short getValue() {
+        return ByteBuffer.wrap(version).getShort();
     }
 }

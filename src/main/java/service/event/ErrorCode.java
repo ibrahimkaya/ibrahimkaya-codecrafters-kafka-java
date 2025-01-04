@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 
 public record ErrorCode(byte[] code) implements EventPart<Short> {
     public ErrorCode(short code) {
-        this(ByteUtils.wrapWithBytes(code, 2));
+        this(ByteUtils.wrapWithBytes(code));
     }
 
     @Override
@@ -15,12 +15,11 @@ public record ErrorCode(byte[] code) implements EventPart<Short> {
     }
 
     @Override
-    public int length() {
-        return 2;
-    }
-
-    @Override
     public Short getValue() {
         return ByteBuffer.wrap(code).getShort();
+    }
+
+    public static ErrorCode notError() {
+        return new ErrorCode((short) 0);
     }
 }

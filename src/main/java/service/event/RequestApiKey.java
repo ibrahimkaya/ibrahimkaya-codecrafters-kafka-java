@@ -1,8 +1,14 @@
 package service.event;
 
-import service.ByteUtils;
+import java.nio.ByteBuffer;
 
-public record RequestApiKey(byte[] key) implements EventPart<Integer> {
+import static service.ByteUtils.wrapWithBytes;
+
+public record RequestApiKey(byte[] key) implements EventPart<Short> {
+
+    public RequestApiKey(short key) {
+        this(wrapWithBytes(key));
+    }
 
     @Override
     public String getName() {
@@ -10,12 +16,7 @@ public record RequestApiKey(byte[] key) implements EventPart<Integer> {
     }
 
     @Override
-    public int length() {
-        return 2;
-    }
-
-    @Override
-    public Integer getValue() {
-        return ByteUtils.bytesToInt(key);
+    public Short getValue() {
+        return ByteBuffer.wrap(key).getShort();
     }
 }
