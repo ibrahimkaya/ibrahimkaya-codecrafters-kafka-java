@@ -16,7 +16,7 @@ public class EventFactory {
             throw new IllegalArgumentException("buffer is null or empty");
         }
 
-        logger.info("Creating a new event, buffer: " + new String(buffer, StandardCharsets.UTF_8));
+        logger.warn("Creating a new event, buffer: " + new String(buffer, StandardCharsets.UTF_8));
         MessageSize messageSize = new MessageSize(Arrays.copyOfRange(buffer, 0, 4));
         RequestApiKey requestApiKey = new RequestApiKey(Arrays.copyOfRange(buffer, 4, 6));
         RequestApiVersion requestApiVersion = new RequestApiVersion(Arrays.copyOfRange(buffer, 6, 8));
