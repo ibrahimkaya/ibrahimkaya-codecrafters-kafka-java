@@ -7,6 +7,7 @@ import service.event.response.ResponseWriter;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +37,7 @@ public class MainTest {
         assertEquals(expectedErrorCode, resultCode.intValue());
     }
 
-   // @Test
+    //@Test
     public void outPutCorrectly() throws IOException {
         // Arrange: Mock the OutputStream
         OutputStream outputStream = mock(OutputStream.class);
@@ -49,7 +50,7 @@ public class MainTest {
             @Override
             public Void answer(InvocationOnMock invocation) throws Throwable {
                 byte[] writtenBytes = (byte[]) invocation.getArguments()[0];
-                capturedOutput.append(new String(writtenBytes)); // Convert bytes to String and append
+                capturedOutput.append(new String(writtenBytes, StandardCharsets.UTF_8)); // Convert bytes to String and append
                 return null;
             }
         }).when(outputStream).write(any(byte[].class));

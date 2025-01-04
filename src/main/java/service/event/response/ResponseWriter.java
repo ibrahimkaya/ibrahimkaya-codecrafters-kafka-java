@@ -14,8 +14,6 @@ public class ResponseWriter {
 
     public void writeOutput(OutputStream outputStream, Event event) throws IOException {
 
-        logger.info("consumed event: " + event.toString());
-
         short version = event.requestApiVersion().getValue();
         boolean versionIsValid = 4 <= version && version <= 18;
         if (versionIsValid) {
