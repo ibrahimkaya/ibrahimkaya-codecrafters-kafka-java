@@ -1,7 +1,6 @@
 package service.socket;
 
 import org.apache.log4j.Logger;
-import service.event.ErrorCode;
 import service.event.Event;
 import service.event.EventFactory;
 import service.event.response.ResponseWriter;
@@ -70,8 +69,7 @@ public final class SocketManager {
     }
 
     private Event readInputStream(InputStream inputStream) throws IOException {
-        byte[] buffer = new byte[12];
-        inputStream.read(buffer, 0, 12);
-        return EventFactory.createEvent(buffer);
+        return EventFactory.createEvent(inputStream);
     }
+
 }
