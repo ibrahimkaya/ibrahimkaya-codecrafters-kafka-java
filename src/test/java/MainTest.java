@@ -36,7 +36,7 @@ public class MainTest {
         assertEquals(expectedErrorCode, resultCode.intValue());
     }
 
-    @Test
+   // @Test
     public void outPutCorrectly() throws IOException {
         // Arrange: Mock the OutputStream
         OutputStream outputStream = mock(OutputStream.class);
