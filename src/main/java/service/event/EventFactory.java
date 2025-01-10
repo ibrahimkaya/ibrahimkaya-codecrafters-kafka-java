@@ -16,8 +16,6 @@ public class EventFactory {
         RequestApiKey requestApiKey = new RequestApiKey(inputStream.readNBytes(2));
         RequestApiVersion requestApiVersion = new RequestApiVersion(inputStream.readNBytes(2));
         CorrelationId correlationId = new CorrelationId(inputStream.readNBytes(4));
-
-        var event = new Event(messageSize, requestApiKey, requestApiVersion, correlationId);
-        return event;
+        return new Event(messageSize, requestApiKey, requestApiVersion, correlationId);
     }
 }
